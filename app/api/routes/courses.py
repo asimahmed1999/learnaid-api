@@ -31,7 +31,8 @@ def list_course_steps(course_id: UUID, db: Session = Depends(get_db)):
     transformed_steps = []
     for step in steps:
         step_dict = step.__dict__.copy()
-        step_dict["image"] = step_dict.pop("image_url", None)
+        step_dict["image"] = {
+            "uri" : step_dict.pop("image_url", None)}
         transformed_steps.append(step_dict)
 
     return transformed_steps
@@ -47,7 +48,7 @@ def get_course_overview(course_id: str, db: Session = Depends(get_db)):
     sections = [
         schemas.CourseSection(
             icon=section.icon,
-            image=section.image_url,
+            image={ "uri" :section.image_url},
             highlight=section.highlight,
             title=section.title,
             text=section.text

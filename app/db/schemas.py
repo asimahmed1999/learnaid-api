@@ -111,7 +111,7 @@ class MotivationalQuoteOut(BaseModel):
 
 class CourseSection(BaseModel):
     icon: Optional[str]
-    image: Optional[str]
+    image: any
     highlight: Optional[bool] = False
     title: Optional[str]
     text: str
