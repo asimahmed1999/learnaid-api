@@ -52,7 +52,7 @@ class ModuleOut(BaseModel):
     type: str
     title: Optional[str]
     description: Optional[str]
-    image_url: Optional[str]
+    image: Optional[str]
     options: Optional[list]        # will decode JSONB
     correct_answer: Optional[str]
     explanation: Optional[str]

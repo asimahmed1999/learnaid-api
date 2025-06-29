@@ -25,10 +25,16 @@ def list_courses(db: Session = Depends(get_db)):
 def list_course_steps(course_id: UUID, db: Session = Depends(get_db)):
     steps = course_crud.get_course_steps(db, course_id)
     if not steps:
-        # If you want to return 404 when no steps exist, uncomment:
-        # raise HTTPException(status_code=404, detail="No steps found for this course")
         return []
-    return steps
+
+    # Convert each step object to dict, then rename 'image_url' to 'image'
+    transformed_steps = []
+    for step in steps:
+        step_dict = step.__dict__.copy()
+        step_dict["image"] = step_dict.pop("image_url", None)
+        transformed_steps.append(step_dict)
+
+    return transformed_steps
 
 
 @router.get("/{course_id}/overview", response_model=schemas.CourseOverviewResponse)
