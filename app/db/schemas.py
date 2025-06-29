@@ -108,10 +108,13 @@ class MotivationalQuoteOut(BaseModel):
     class Config:
         from_attributes = True
 
+class ImageURI(BaseModel):
+    uri: Optional[str] = None
+
 
 class CourseSection(BaseModel):
     icon: Optional[str]
-    image: Dict[str, str]
+    image: Optional[ImageURI] = None
     highlight: Optional[bool] = False
     title: Optional[str]
     text: str
