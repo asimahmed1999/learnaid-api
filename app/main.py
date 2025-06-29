@@ -1,5 +1,6 @@
 # app/main.py
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from app.api.routes import auth, users, progress, courses, notes, feedback, quotes  # import the route module
 
 app = FastAPI(title="LearnAid API")
@@ -12,6 +13,8 @@ app.include_router(users.router, tags=["Users"])
 app.include_router(notes.router, tags=["Notes"])
 app.include_router(feedback.router, tags=["Feedback"])
 app.include_router(quotes.router, tags=["Quotes"])
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 if __name__ == "__main__":
     # Retrieve the PORT from the environment or use a default value
