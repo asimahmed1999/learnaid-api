@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import Optional, List
+from typing import Dict, Optional, List
 from uuid import UUID  # Add this at the top
 
 # ✅ Used for incoming registration data
@@ -111,7 +111,7 @@ class MotivationalQuoteOut(BaseModel):
 
 class CourseSection(BaseModel):
     icon: Optional[str]
-    image: any
+    image: Dict[str, str]
     highlight: Optional[bool] = False
     title: Optional[str]
     text: str
