@@ -9,6 +9,9 @@ class UserCreate(BaseModel):
     password: str
     name: str
 
+class ImageURI(BaseModel):
+    uri: Optional[str] = None
+
 
 class UserOut(BaseModel):
     id: UUID  # <- change from str to UUID
@@ -52,7 +55,7 @@ class ModuleOut(BaseModel):
     type: str
     title: Optional[str]
     description: Optional[str]
-    image: Optional[str]
+    image: Optional[ImageURI] = None
     options: Optional[list]        # will decode JSONB
     correct_answer: Optional[str]
     explanation: Optional[str]
@@ -108,8 +111,6 @@ class MotivationalQuoteOut(BaseModel):
     class Config:
         from_attributes = True
 
-class ImageURI(BaseModel):
-    uri: Optional[str] = None
 
 
 class CourseSection(BaseModel):
