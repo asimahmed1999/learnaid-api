@@ -27,12 +27,11 @@ def list_course_steps(course_id: UUID, db: Session = Depends(get_db)):
     if not steps:
         return []
 
-    # Convert each step object to dict, then rename 'image_url' to 'image'
     transformed_steps = []
     for step in steps:
         step_dict = step.__dict__.copy()
-        step_dict["image"] = {
-            "uri" : step_dict.pop("image_url", None)}
+        image_url = step_dict.pop("image_url", None)
+        step_dict["image"] = {"uri": image_url} if image_url else None
         transformed_steps.append(step_dict)
 
     return transformed_steps
@@ -48,7 +47,7 @@ def get_course_overview(course_id: str, db: Session = Depends(get_db)):
     sections = [
         schemas.CourseSection(
             icon=section.icon,
-            image={ "uri" :section.image_url},
+            image={"uri": section.image_url} if section.image_url else None,
             highlight=section.highlight,
             title=section.title,
             text=section.text
